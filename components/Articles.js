@@ -91,16 +91,14 @@ function Articles() {
             gap={6}
           >
             {articlesList.map((article) => (
-              <GridItem>
-                <Article
-                  key={article.title}
-                  img={article.img}
-                  title={article.title}
-                  author={article.author}
-                >
-                  {article.description}
-                </Article>
-              </GridItem>
+              <Article
+                key={article.title}
+                img={article.img}
+                title={article.title}
+                author={article.author}
+              >
+                {article.description}
+              </Article>
             ))}
           </SimpleGrid>
         </VStack>
