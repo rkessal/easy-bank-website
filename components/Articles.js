@@ -81,7 +81,7 @@ function Articles() {
           spacing={8}
           alignItems={{ base: "center", lg: "start" }}
         >
-          <SectionTitle>Latest Articles</SectionTitle>
+          <SectionTitle key="1">Latest Articles</SectionTitle>
           <SimpleGrid
             columns={{
               base: "1",

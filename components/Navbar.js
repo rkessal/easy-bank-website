@@ -58,7 +58,9 @@ function Navbar() {
           <Image src={logo} alt="logo" loading="lazy" />
           <HStack spacing={{ md: "2", lg: "10" }}>
             {navItems.map((item) => (
-              <NavbarItem href={item.link}>{item.label}</NavbarItem>
+              <NavbarItem key={item.link} href={item.link}>
+                {item.label}
+              </NavbarItem>
             ))}
           </HStack>
           <Show above="md">

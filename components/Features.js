@@ -70,7 +70,7 @@ function Features() {
           alignItems={{ base: "center", lg: "start" }}
           maxW="xl"
         >
-          <SectionTitle>Why choose EasyBank?</SectionTitle>
+          <SectionTitle key="0">Why choose EasyBank?</SectionTitle>
           <Text color="neutral.grayishBlue">
             {" "}
             We leverage Open Banking to turn your bank account into your
