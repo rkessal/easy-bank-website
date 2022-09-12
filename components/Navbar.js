@@ -90,7 +90,7 @@ function Navbar() {
             <Box
               bgColor="neutral.white"
               position="absolute"
-              top={nav ? "20" : "-300"}
+              top={nav ? "20" : "-600"}
               mt={3}
               p={7}
               w="full"
