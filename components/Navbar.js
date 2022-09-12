@@ -10,12 +10,14 @@ import {
   Link,
   Show,
   Text,
+  VStack,
 } from "@chakra-ui/react";
-import { HiMenu } from "react-icons/hi";
+import { HiMenu, HiX } from "react-icons/hi";
 import Image from "next/image";
 import logo from "../img/logo.svg";
 import NextLink from "next/link";
 import CustomButton from "./CustomButton";
+import { useState } from "react";
 
 const navItems = [
   { label: "Home", link: "#" },
@@ -27,25 +29,25 @@ const navItems = [
 
 function NavbarItem({ href, children }) {
   return (
-    <Show above="md">
-      <NextLink href={href} passHref>
-        <Link
-          py={5}
-          _hover={{
-            marginBottom: "-2px",
-            borderBottom: "2px",
-            borderColor: "primary.limeGreen",
-          }}
-          color="neutral.grayishBlue"
-        >
-          {children}
-        </Link>
-      </NextLink>
-    </Show>
+    <NextLink href={href} passHref>
+      <Link
+        py={{ base: "1", md: "6" }}
+        _hover={{
+          marginBottom: "-2px",
+          borderBottom: "2px",
+          borderColor: "primary.limeGreen",
+          color: "primary.darkBlue",
+        }}
+        color={{ base: "primary.darkBlue", md: "neutral.grayishBlue" }}
+      >
+        {children}
+      </Link>
+    </NextLink>
   );
 }
 
 function Navbar() {
+  const [nav, setNav] = useState(false);
   return (
     <Box bg="neutral.white" position="relative" zIndex={1}>
       <Container
@@ -54,25 +56,55 @@ function Navbar() {
           lg: "container.lg",
         }}
       >
-        <Flex as="nav" h={20} align="center" justify="space-between">
+        <Flex
+          as="nav"
+          h={20}
+          align="center"
+          justify="space-between"
+          position="relative"
+        >
           <Image src={logo} alt="logo" loading="lazy" />
-          <HStack spacing={{ md: "2", lg: "10" }}>
-            {navItems.map((item) => (
-              <NavbarItem key={item.link} href={item.link}>
-                {item.label}
-              </NavbarItem>
-            ))}
-          </HStack>
           <Show above="md">
+            <HStack spacing={{ md: "2", lg: "10" }}>
+              {navItems.map((item) => (
+                <NavbarItem key={item.label} href={item.link}>
+                  {item.label}
+                </NavbarItem>
+              ))}
+            </HStack>
             <CustomButton>Request Invite</CustomButton>
           </Show>
           <Hide above="md">
             <IconButton
+              onClick={() =>
+                setNav((prev) => {
+                  console.log("nav : " + nav);
+                  return !prev;
+                })
+              }
               m={1}
-              icon={<HiMenu />}
+              icon={nav ? <HiX /> : <HiMenu />}
               color="neutral.grayishBlue"
               bg="neutral.white"
             />
+            <Box
+              bgColor="neutral.white"
+              position="absolute"
+              top={nav ? "20" : "-300"}
+              mt={3}
+              p={7}
+              w="full"
+              rounded="xl"
+              boxShadow="xl"
+            >
+              <VStack>
+                {navItems.map((item) => (
+                  <NavbarItem key={item.label} href={item.link}>
+                    {item.label}
+                  </NavbarItem>
+                ))}
+              </VStack>
+            </Box>
           </Hide>
         </Flex>
       </Container>

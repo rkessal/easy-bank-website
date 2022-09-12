@@ -50,7 +50,13 @@ const articlesList = [
 
 function Article({ img, author, title, children }) {
   return (
-    <Box bgColor="neutral.white" rounded="2xl" overflow="hidden" maxW="sm">
+    <Box
+      bgColor="neutral.white"
+      rounded="2xl"
+      overflow="hidden"
+      maxW="sm"
+      boxShadow="md"
+    >
       <Image src={img} width={1920} height={1280} />
       <VStack p={8} textAlign="left" alignItems="start">
         <Text fontSize="xs" color="neutral.grayishBlue">
