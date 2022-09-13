@@ -104,6 +104,7 @@ function Navbar() {
               p={7}
               roundedBottom="xl"
               boxShadow="xl"
+              display={{ lg: "none" }}
             >
               <VStack>
                 {navItems.map((item) => (
