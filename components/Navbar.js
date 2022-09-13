@@ -98,8 +98,8 @@ function Navbar() {
               bgColor="neutral.white"
               position="fixed"
               top={20}
-              left={nav ? 0 : 600}
-              right={nav ? 0 : -600}
+              left={nav ? 0 : 999}
+              right={nav ? 0 : -999}
               transition="all .80s ease"
               p={7}
               roundedBottom="xl"
