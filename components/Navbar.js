@@ -49,7 +49,14 @@ function NavbarItem({ href, children }) {
 function Navbar() {
   const [nav, setNav] = useState(false);
   return (
-    <Box bg="neutral.white" position="relative" zIndex={1}>
+    <Box
+      bg="neutral.white"
+      position="fixed"
+      zIndex={20}
+      top={0}
+      left={0}
+      right={0}
+    >
       <Container
         maxW={{
           base: "container.sm",
@@ -89,12 +96,13 @@ function Navbar() {
             />
             <Box
               bgColor="neutral.white"
-              position="absolute"
-              top={nav ? "20" : "-600"}
-              mt={3}
+              position="fixed"
+              top={20}
+              left={nav ? 0 : 600}
+              right={nav ? 0 : -600}
+              transition="all .80s ease"
               p={7}
-              w="full"
-              rounded="xl"
+              roundedBottom="xl"
               boxShadow="xl"
             >
               <VStack>

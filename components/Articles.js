@@ -4,6 +4,7 @@ import {
   Grid,
   GridItem,
   SimpleGrid,
+  SlideFade,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -13,6 +14,8 @@ import confettiImg from "../img/image-confetti.jpg";
 import currencyImg from "../img/image-currency.jpg";
 import planeImg from "../img/image-plane.jpg";
 import restaurantImg from "../img/image-restaurant.jpg";
+import { useEffect, useRef, useState } from "react";
+import { useInViewport } from "react-in-viewport";
 
 const articlesList = [
   {
@@ -49,32 +52,48 @@ const articlesList = [
 ];
 
 function Article({ img, author, title, children }) {
+  const ref = useRef();
+  const { inViewport } = useInViewport(
+    ref,
+    { rootMargin: "-200px" },
+    { disconnectOnLeave: false },
+    {}
+  );
+  const [anim, setAnim] = useState(false);
+
+  useEffect(() => {
+    if (inViewport) setAnim(true);
+  }, [inViewport]);
+
   return (
-    <Box
-      bgColor="neutral.white"
-      rounded="2xl"
-      overflow="hidden"
-      maxW="sm"
-      boxShadow="md"
-    >
-      <Image src={img} width={1920} height={1280} />
-      <VStack p={8} textAlign="left" alignItems="start">
-        <Text fontSize="xs" color="neutral.grayishBlue">
-          By {author}
-        </Text>
-        <Text
-          as="h5"
-          fontSize="xl"
-          color="primary.darkBlue"
-          _hover={{ color: "primary.limeGreen", cursor: "pointer" }}
-        >
-          {title}
-        </Text>
-        <Text fontSize="sm" color="neutral.grayishBlue">
-          {children}
-        </Text>
-      </VStack>
-    </Box>
+    <SlideFade offsetY="50px" in={anim}>
+      <Box
+        bgColor="neutral.white"
+        rounded="2xl"
+        overflow="hidden"
+        maxW="sm"
+        boxShadow="md"
+        ref={ref}
+      >
+        <Image src={img} width={1920} height={1280} />
+        <VStack p={8} textAlign="left" alignItems="start">
+          <Text fontSize="xs" color="neutral.grayishBlue">
+            By {author}
+          </Text>
+          <Text
+            as="h5"
+            fontSize="xl"
+            color="primary.darkBlue"
+            _hover={{ color: "primary.limeGreen", cursor: "pointer" }}
+          >
+            {title}
+          </Text>
+          <Text fontSize="sm" color="neutral.grayishBlue">
+            {children}
+          </Text>
+        </VStack>
+      </Box>
+    </SlideFade>
   );
 }
 

@@ -4,6 +4,7 @@ import {
   Container,
   Flex,
   Heading,
+  SlideFade,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -13,6 +14,9 @@ import onlineBankingIcon from "../img/icon-online.svg";
 import apiIcon from "../img/icon-api.svg";
 import onboardingIcon from "../img/icon-onboarding.svg";
 import budgetingIcon from "../img/icon-budgeting.svg";
+import { useInViewport } from "react-in-viewport";
+import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 const featuresList = [
   {
@@ -44,22 +48,38 @@ const featuresList = [
 ];
 
 const Feature = ({ title, icon, children }) => {
+  const ref = useRef();
+  const { inViewport } = useInViewport(
+    ref,
+    { rootMargin: "-200px" },
+    { disconnectOnLeave: false },
+    {}
+  );
+  const [anim, setAnim] = useState(false);
+
+  useEffect(() => {
+    if (inViewport) setAnim(true);
+  }, [inViewport]);
+
   return (
-    <VStack
-      spacing={5}
-      textAlign={{ base: "center", lg: "left" }}
-      alignItems={{ base: "center", lg: "start" }}
-    >
-      <Image src={icon} />
-      <Heading as="h4" size={{ base: "lg" }} fontWeight="medium">
-        {title}
-      </Heading>
-      <Text>{children}</Text>
-    </VStack>
+    <SlideFade offsetY="50px" in={anim}>
+      <VStack
+        ref={ref}
+        spacing={5}
+        textAlign={{ base: "center", lg: "left" }}
+        alignItems={{ base: "center", lg: "start" }}
+      >
+        <Image src={icon} />
+        <Heading as="h4" size={{ base: "lg" }} fontWeight="medium">
+          {title}
+        </Heading>
+        <Text>{children}</Text>
+      </VStack>
+    </SlideFade>
   );
 };
 
-function Features() {
+const Features = () => {
   return (
     <Box bgColor="neutral.lightGrayishBlue">
       <Container maxW={{ base: "container.sm", lg: "container.lg" }} py={20}>
@@ -77,6 +97,7 @@ function Features() {
             financial hub. Control your finances like never before.
           </Text>
         </VStack>
+
         <Flex direction={{ base: "column", lg: "row" }} gap={45}>
           {featuresList.map((feature) => (
             <Feature
@@ -91,6 +112,6 @@ function Features() {
       </Container>
     </Box>
   );
-}
+};
 
 export default Features;

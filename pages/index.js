@@ -14,13 +14,11 @@ export default function Home() {
         <title>EasyBank</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Box>
-        <Navbar />
-        <Hero />
-        <Features />
-        <Articles />
-        <Footer />
-      </Box>
+      <Navbar />
+      <Hero />
+      <Features />
+      <Articles />
+      <Footer />
     </>
   );
 }

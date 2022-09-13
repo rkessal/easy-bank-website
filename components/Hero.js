@@ -2,20 +2,26 @@ import { Box, Container, Flex, Heading, Text, VStack } from "@chakra-ui/react";
 import Image from "next/image";
 import mockups from "../img/image-mockups.png";
 import CustomButton from "./CustomButton";
-import SectionTitle from "./SectionTitle";
-import bgIntro from "../img/bg-intro-desktop.svg";
+import { motion } from "framer-motion";
 
 function Hero() {
+  const MotionContainer = motion(Container);
+  const variants = {
+    hidden: { opacity: 0, x: 0, y: 20 },
+    enter: { opacity: 1, x: 0, y: 0 },
+    exit: { opacity: 0, x: -0, y: 20 },
+  };
   return (
-    <Box
-      bgColor="neutral.veryLightGray"
-      bgImage="url('../img/bg-intro-desktop.svg')"
-      bgPosition="center"
-    >
-      <Container
-        mt={{ base: "-40", lg: "-10" }}
+    <Box bg="neutral.veryLightGray">
+      <MotionContainer
+        mt={{ base: "-20", lg: "20" }}
         maxW={{ base: "container.sm", lg: "container.lg" }}
-        pb={20}
+        py={20}
+        initial="hidden"
+        animate="enter"
+        exit="exit"
+        variants={variants}
+        transition={{ duration: 0.4, type: "easeInOut" }}
       >
         <Flex
           direction={{ base: "column", lg: "row-reverse" }}
@@ -37,7 +43,7 @@ function Hero() {
             <CustomButton>Request Invite</CustomButton>
           </VStack>
         </Flex>
-      </Container>
+      </MotionContainer>
     </Box>
   );
 }
